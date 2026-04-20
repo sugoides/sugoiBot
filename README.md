@@ -72,5 +72,3 @@ To create a new module (e.g., `Economy`):
 3. Add commands in `modules/economy/commands/` and events in `modules/economy/events/`.
 4. The bot will automatically load them on the next startup.
 
-## 📜 License
-This project is inspired by the GigaJoyce framework by TechJoyce.
