@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import db from '../../../lib/database.js';
+import { Member } from '../../../lib/classes/Member.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -7,16 +7,19 @@ export default {
         .setDescription('Check your rank')
         .addUserOption(opt => opt.setName('user').setDescription('User to check')),
     async execute(interaction) {
-        const user = interaction.options.getUser('user') || interaction.user;
-        const data = db.prepare('SELECT xp, level FROM xp WHERE userId = ?').get(user.id);
+        const targetUser = interaction.options.getUser('user') || interaction.user;
+        const targetMember = interaction.options.getMember('user') || interaction.member;
 
-        if (!data) return interaction.reply({ content: 'No XP data.', ephemeral: true });
+        const member = new Member(targetMember);
+        const data = member.getXP();
+
+        const getNeededXP = (lvl) => lvl * lvl * 100;
 
         const embed = new EmbedBuilder()
-            .setTitle(`${user.username}'s Rank`)
+            .setTitle(`${targetUser.username}'s Rank`)
             .addFields(
                 { name: 'Level', value: String(data.level), inline: true },
-                { name: 'XP', value: `${data.xp} / ${data.level * data.level * 100}`, inline: true }
+                { name: 'XP', value: `${data.xp} / ${getNeededXP(data.level)}`, inline: true }
             );
 
         await interaction.reply({ embeds: [embed] });

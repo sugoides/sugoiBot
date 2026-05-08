@@ -7,7 +7,6 @@ A modern, modular, and scalable Discord bot framework rewritten in Node.js (Java
 - **Plug-and-Play Modularity**: Add or remove features by simply dropping folders into the `modules/` directory.
 - **Granular Handling**: Dedicated handlers for modules, commands, and events.
 - **Persistent Storage**: Fast and reliable local data management using `better-sqlite3`.
-- **Localization (i18n)**: Built-in support for multiple languages with user-specific preferences.
 - **XP & Leveling System**: Integrated engagement system with automated leveling and rank tracking.
 - **Settings Framework**: Global and module-specific configuration managed via the database.
 - **Centralized Logging**: Consistent and informative console logging for easier debugging.
@@ -25,12 +24,10 @@ sugoiBot/
 │   ├── utils/          # Formatting and helper functions
 │   ├── database.js     # SQLite initialization
 │   ├── settings.js     # Settings management logic
-│   └── locales.js      # Translation engine
 ├── modules/            # Feature-specific modules
-│   ├── core/           # Essential bot logic (Settings, Language)
+│   ├── core/           # Essential bot logic
 │   ├── general/        # Standard commands (Ping)
 │   └── xp/             # Leveling and engagement logic
-├── locales/            # Translation JSON files (en, es, etc.)
 ├── settings/           # Configuration schemas and base settings
 └── data/               # Persistent SQLite database storage
 ```
@@ -71,4 +68,3 @@ To create a new module (e.g., `Economy`):
    ```
 3. Add commands in `modules/economy/commands/` and events in `modules/economy/events/`.
 4. The bot will automatically load them on the next startup.
-

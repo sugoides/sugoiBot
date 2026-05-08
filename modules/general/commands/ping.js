@@ -1,5 +1,4 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { translate } from '../../../lib/locales.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -7,6 +6,6 @@ export default {
         .setDescription('Replies with Pong!'),
     async execute(interaction) {
         const latency = Date.now() - interaction.createdTimestamp;
-        await interaction.reply(translate(interaction.user.id, 'ping_response', { latency }));
+        await interaction.reply(`Pong! Latency is ${latency}ms.`);
     },
 };
